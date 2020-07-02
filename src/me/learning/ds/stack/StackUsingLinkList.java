@@ -9,7 +9,7 @@ public class StackUsingLinkList<T> {
 	Node<T> top = null;
 	
 	public boolean isEmpty() {
-		return top == null;
+		return (top == null);
 	}
 	
 	public void push(T data) {
@@ -20,7 +20,7 @@ public class StackUsingLinkList<T> {
 			return;
 		}
 		
-		newNode = top.nextNode;
+		newNode.nextNode = top;
 		top = newNode;
 	}
 	
@@ -31,6 +31,15 @@ public class StackUsingLinkList<T> {
 		T data = top.data;
 		top = top.nextNode;
 		return data;
+	}
+	
+	public void print() {
+		Node<T> tempHead = top;
+		while(tempHead != null) {
+			System.out.print(tempHead.data + "\t");
+			tempHead = tempHead.nextNode;
+		}
+		System.out.println();
 	}
 	
 

@@ -14,9 +14,11 @@ public class StackClient {
 		
 		StackUsingLinkList<Integer> stackUsingLinkList = new StackUsingLinkList<>();
 		stackUsingLinkList.push(1);
-		stackUsingLinkList.push(1);
-		stackUsingLinkList.push(1);
+		stackUsingLinkList.push(2);
+		stackUsingLinkList.push(3);
+		stackUsingLinkList.print();
 		stackUsingLinkList.pop();
+		stackUsingLinkList.print();
 		
 
 	}
