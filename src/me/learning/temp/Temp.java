@@ -1,8 +1,14 @@
 package me.learning.temp;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 public class Temp {
 
 	public static void main(String[] args) {
+		List list = new ArrayList();
+		List linkedlist = new LinkedList();
 		int signedInt = -108;
 		System.out.println(signedInt%10);
 		 int a = 1534236469;
