@@ -1,4 +1,4 @@
-package me.learning.ds.linkedlist.generics;
+package me.learning.ds.doublylinkedlist.generics;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
  3) currentSize - Tracks the number of Nodes in the Linked list to improve the time complexity of 
  		a) size() - Constant time
  */
-public class LinkedList<T> implements Iterable<T>{
+public class DoublyLinkedList<T> implements Iterable<T>{
 	
 	Node<T> head = null;
 	Node<T> tail = null;
@@ -51,16 +51,16 @@ public class LinkedList<T> implements Iterable<T>{
 		}
 		
 		Node<T> temp = head;
-		Node<T> previous = head;
 		
 		while(temp.nextNode != null & pointerCount<position) {
-			previous = temp;
 			temp = temp.nextNode;
 			pointerCount++;
 		}
-
-		previous.nextNode = newNode;
+		
 		newNode.nextNode = temp.nextNode;
+		newNode.preNode = temp;
+		temp.nextNode = newNode;
+		newNode.nextNode.preNode = newNode;
 		currentSize++;
 			
 	}
@@ -90,8 +90,8 @@ public class LinkedList<T> implements Iterable<T>{
 		while(temp.nextNode != null) {
 			temp = temp.nextNode;
 		}
-		
 		temp.nextNode = newNode;
+		newNode.preNode = temp;		
 		currentSize++;		
 	}
 	
@@ -106,6 +106,7 @@ public class LinkedList<T> implements Iterable<T>{
 			currentSize++;
 			return;
 		}
+		newNode.preNode = tail;
 		tail.nextNode = newNode;
 		tail = newNode;
 		currentSize++;
@@ -146,18 +147,14 @@ public class LinkedList<T> implements Iterable<T>{
 			return removedNodeData;
 		}
 		
-		Node<T> current = head, previous = null;
+		Node<T> current = head;
 		while(current.nextNode != null) {
 			if(((Comparable<T>)data).compareTo(current.data) == 0) {
-				if(previous!=null) {
-				previous.nextNode = current.nextNode;
-				} else {
-					head = head.nextNode;
-				}
+				current.preNode.nextNode = current.nextNode;
+				current.nextNode.preNode = current.preNode;
 				currentSize--;
 				return current.data;
 			}
-			previous = current;
 			current = current.nextNode;
 		}
 		
@@ -166,7 +163,8 @@ public class LinkedList<T> implements Iterable<T>{
 	
 	
 	/* 
-	 * Time Complexity - O(n)
+	 * Time Complexity - O(1) - Constant time. Doubly Linked List changes Singly Linked List's O(n) to O(1)
+	 * we need both tail and Doubly Linked List to reduce time complexity from O(n) to O(1)
 	 * Space Complexity -
 	*/
 	public T removeLast() {
@@ -179,16 +177,12 @@ public class LinkedList<T> implements Iterable<T>{
 			return removedNodeData;
 		}
 		
-		Node<T> current = head, previous = null;
+		removedNodeData = tail.data;
+		tail.preNode.nextNode = null;
+		tail = tail.preNode;
 		
-		while(current.nextNode != null){
-			previous = current;
-			current = current.nextNode;
-		}
-		previous.nextNode = null;
-		tail = previous;
 		currentSize--;
-		return current.data;
+		return removedNodeData;
 		
 	}
 	
@@ -220,17 +214,13 @@ public class LinkedList<T> implements Iterable<T>{
 	 * Time Complexity - O(n)
 	 * Space Complexity -
 	*/
-	public void printUsingIterator(LinkedList<T> linkedList) {
+	public void printUsingIterator(DoublyLinkedList<T> linkedList) {
 		
 		for(T nodeData : linkedList) {
 			System.out.println(nodeData+"==>");
 		}
 		
 		System.out.println("NULL");
-	}
-	
-	public void printLinkedListReversed() {
-		
 	}
 
 	@Override
