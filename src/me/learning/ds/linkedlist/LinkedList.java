@@ -1,6 +1,7 @@
 package me.learning.ds.linkedlist;
 
 public class LinkedList {
+	
 	Node head = null;
 	
 	public LinkedList insertNodeAtEnd(LinkedList lList, Integer data) {

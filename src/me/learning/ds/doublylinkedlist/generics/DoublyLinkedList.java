@@ -12,9 +12,75 @@ import java.util.NoSuchElementException;
  */
 public class DoublyLinkedList<T> implements Iterable<T>{
 	
-	Node<T> head = null;
-	Node<T> tail = null;
-	int currentSize = 0;
+	Node<T> head;
+	Node<T> tail;
+	int currentSize;
+	
+	public DoublyLinkedList() {
+		head = null;
+		tail = null;
+		currentSize = 0;
+	}
+	
+	private class ForwardIterators<T> implements Iterator<T>{
+		
+		Node<T> head;
+		
+		public ForwardIterators(Node<T> head) {
+			this.head = head;
+		}
+
+		@Override
+		public boolean hasNext() {
+			if(head != null)
+				return true;
+			return false;
+		}
+
+		@Override
+		public T next() {
+			if(hasNext()) {
+				T element = head.data;
+				head=head.nextNode;
+				return element;
+			}
+			return null;
+		}
+		
+	}
+	
+	private class ReverseIterators<T> implements Iterator<T>, Iterable<T>{
+		
+		Node<T> tail;
+		
+		public ReverseIterators(Node<T> tail) {
+			this.tail = tail;
+		}
+
+		@Override
+		public boolean hasNext() {
+			if(tail != null)
+				return true;
+			return false;
+		}
+
+		@Override
+		public T next() {
+			if(hasNext()) {
+				T element = tail.data;
+				tail = tail.preNode;
+				return element;
+			}
+			return null;
+		}
+
+		@Override
+		public Iterator<T> iterator() {
+			return this;
+		}
+		
+	}
+	
 	
 	/* 
 	 * Time Complexity - O(1)
@@ -31,7 +97,13 @@ public class DoublyLinkedList<T> implements Iterable<T>{
 	public void addNodeAtBegin(T data){
 		Node<T> newNode = new Node<>(data);
 		newNode.nextNode = head;
-		head = newNode;	
+		if(head == null) {
+			head = tail = newNode;
+		}
+		else {
+			head.preNode = newNode;
+			head = newNode;
+		}
 		currentSize++;			
 	}
 	
@@ -40,15 +112,12 @@ public class DoublyLinkedList<T> implements Iterable<T>{
 	 * Space Complexity -
 	*/
 	public void add(T data, int position) {
-		Node<T> newNode = new Node<>(data);
 		int pointerCount = 0;
 		
-		if(head == null) {
-			newNode.nextNode = head;
-			head = newNode;
-			currentSize++;
+		if(head == null && position > 0)
 			return;
-		}
+		
+		Node<T> newNode = new Node<>(data);
 		
 		Node<T> temp = head;
 		
@@ -57,10 +126,16 @@ public class DoublyLinkedList<T> implements Iterable<T>{
 			pointerCount++;
 		}
 		
-		newNode.nextNode = temp.nextNode;
+		if(temp.nextNode == null) {
+			addNodeAtEnd(data);
+			return;
+		}
+		
 		newNode.preNode = temp;
+		newNode.nextNode = temp.nextNode;
+		temp.nextNode.preNode = newNode;
 		temp.nextNode = newNode;
-		newNode.nextNode.preNode = newNode;
+		tail = newNode;
 		currentSize++;
 			
 	}
@@ -129,6 +204,7 @@ public class DoublyLinkedList<T> implements Iterable<T>{
 		}
 		
 		head = head.nextNode;
+		head.preNode = null;
 		currentSize--;		
 		return removedNodeData;
 	}
@@ -168,18 +244,19 @@ public class DoublyLinkedList<T> implements Iterable<T>{
 	 * Space Complexity -
 	*/
 	public T removeLast() {
+		T removedNodeData;
 		if(head == null)
 			return null;
-		T removedNodeData = head.data;
 		if(head == tail){
+			removedNodeData = head.data;
 			head = tail = null;
 			currentSize--;
 			return removedNodeData;
 		}
 		
 		removedNodeData = tail.data;
-		tail.preNode.nextNode = null;
 		tail = tail.preNode;
+		tail.nextNode = null;
 		
 		currentSize--;
 		return removedNodeData;
@@ -214,13 +291,34 @@ public class DoublyLinkedList<T> implements Iterable<T>{
 	 * Time Complexity - O(n)
 	 * Space Complexity -
 	*/
-	public void printUsingIterator(DoublyLinkedList<T> linkedList) {
+	public void printUsingIterator() {
 		
-		for(T nodeData : linkedList) {
-			System.out.println(nodeData+"==>");
+		for(T nodeData : this) {
+			System.out.print(nodeData+"==>");
 		}
 		
-		System.out.println("NULL");
+		System.out.print("NULL");
+		System.out.println("HEAD @"+  head.data +"TAIL@"+ tail.data);
+	}
+	
+	/* 
+	 * Time Complexity - O(n)
+	 * Space Complexity -
+	*/
+	public void printReverseUsingIterator() {
+		
+		ReverseIterators<T> linkedList = new ReverseIterators<>(tail);
+		
+		for(T nodeData : linkedList) {
+			System.out.print(nodeData+"==>");
+		}
+		
+		System.out.print("NULL");
+		System.out.println("HEAD @"+  head.data +"TAIL@"+ tail.data);
+	}
+	
+	public Iterator<T> reverseIterator() {
+		return new ReverseIterators<>(tail);
 	}
 
 	@Override
