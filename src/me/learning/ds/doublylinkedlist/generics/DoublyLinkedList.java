@@ -22,7 +22,7 @@ public class DoublyLinkedList<T> implements Iterable<T>{
 		currentSize = 0;
 	}
 	
-	private class ForwardIterators<T> implements Iterator<T>{
+	private class ForwardIterators<T> implements Iterator<T>, Iterable<T>{
 		
 		Node<T> head;
 		
@@ -45,6 +45,11 @@ public class DoublyLinkedList<T> implements Iterable<T>{
 				return element;
 			}
 			return null;
+		}
+
+		@Override
+		public Iterator<T> iterator() {
+			return this;
 		}
 		
 	}
@@ -324,25 +329,7 @@ public class DoublyLinkedList<T> implements Iterable<T>{
 	@Override
 	public Iterator<T> iterator() {
 		
-		return new Iterator<T>() {
-			
-			Node<T> index = head;
-			
-			@Override
-			public boolean hasNext() {
-				return index !=null;
-			}
-
-			@Override
-			public T next() {
-				if(!hasNext())
-					throw new NoSuchElementException();
-				T element = index.data;
-				index = index.nextNode;
-				return element;
-			}
-			
-		};
+		return new ForwardIterators<>(head);
 	}
 
 }
