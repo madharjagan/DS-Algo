@@ -8,6 +8,9 @@ public class BSTClient {
 		rootNode.insert(15);
 		rootNode.insert(20);
 		rootNode.printInOrder();
+		System.out.println(rootNode.contains(5));
+		System.out.println(rootNode.contains(50));
+		
 		
 		Node<String> rootStringNode = new Node<>("jagan"); 
 		rootStringNode.insert("Devi");

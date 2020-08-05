@@ -1,0 +1,4 @@
+Mathematical conversion from Binary to Decimal
+Convert Binary to Decimal Numbers in Java:
+	Use Interger.parseInt()
+	Use Custom Logic

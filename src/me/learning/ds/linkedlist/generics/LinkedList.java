@@ -16,6 +16,37 @@ public class LinkedList<T> implements Iterable<T>{
 	Node<T> tail = null;
 	int currentSize = 0;
 	
+	private class ForwardIterator<T> implements Iterator<T>, Iterable<T> {
+		
+		Node<T> head = null;
+		
+		public ForwardIterator(Node<T> head) {
+			this.head = head;
+		}
+
+		@Override
+		public Iterator<T> iterator() {
+			return this;
+		}
+
+		@Override
+		public boolean hasNext() {			
+			return head != null;
+		}
+
+		@Override
+		public T next() {
+			if(hasNext()) {
+				T element = head.data;
+				head = head.nextNode;
+				return element;
+			}	
+			return null;
+		}
+		
+	}
+	
+	
 	/* 
 	 * Time Complexity - O(1)
 	 * Space Complexity - O(1)
@@ -201,6 +232,13 @@ public class LinkedList<T> implements Iterable<T>{
 		return null;
 	}
 	
+	public T removeNthFromEnd(int n) {
+		
+		
+		
+		return null;
+	}
+	
 	/* 
 	 * Time Complexity - O(n)
 	 * Space Complexity -
@@ -220,41 +258,25 @@ public class LinkedList<T> implements Iterable<T>{
 	 * Time Complexity - O(n)
 	 * Space Complexity -
 	*/
-	public void printUsingIterator(LinkedList<T> linkedList) {
+	public void printUsingIterator() {
 		
-		for(T nodeData : linkedList) {
-			System.out.println(nodeData+"==>");
+		for(T nodeData : this) {
+			System.out.print(nodeData+"==>");
 		}
 		
 		System.out.println("NULL");
 	}
 	
-	public void printLinkedListReversed() {
-		
+	public void printLinkedListReverse(Node<T> head) {
+		if(head == null)
+			return;
+		printLinkedListReverse(head.nextNode);
+		System.out.println(head.data);
 	}
 
 	@Override
-	public Iterator<T> iterator() {
-		
-		return new Iterator<T>() {
-			
-			Node<T> index = head;
-			
-			@Override
-			public boolean hasNext() {
-				return index !=null;
-			}
-
-			@Override
-			public T next() {
-				if(!hasNext())
-					throw new NoSuchElementException();
-				T element = index.data;
-				index = index.nextNode;
-				return element;
-			}
-			
-		};
+	public Iterator<T> iterator() {		
+		return new ForwardIterator<>(head);
 	}
-
+	
 }

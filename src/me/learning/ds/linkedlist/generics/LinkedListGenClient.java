@@ -16,7 +16,7 @@ public class LinkedListGenClient {
 		System.out.println("Removed Item:"+ lList.removeLast());
 		lList.printLinkedList();
 		
-		LinkedList<String> lStringList = new LinkedList<>();
+		/*LinkedList<String> lStringList = new LinkedList<>();
 		lStringList.addNodeAtEnd("Jagan");
 		lStringList.addNodeAtBegin("Rethu");
 		lStringList.addNodeAtEnd("Devi");
@@ -27,7 +27,7 @@ public class LinkedListGenClient {
 		System.out.println("Removed Item:"+ lStringList.remove("Rethu"));
 		lStringList.printLinkedList();
 		System.out.println("Removed Item:"+ lStringList.removeLast());
-		lStringList.printLinkedList();
+		lStringList.printLinkedList();*/
 	}
 
 }

@@ -13,7 +13,7 @@ public class Node<T extends Comparable<T>> {
 	}
 	
 	public void insert(T value) {
-		if(this.data.compareTo(value)>0) {
+		if(this.data.compareTo(value)<0) {
 			if(this.right == null) {
 				this.right = new Node<>(value);
 				
@@ -29,6 +29,27 @@ public class Node<T extends Comparable<T>> {
 		}
 	}
 	
+	public void insertIterative(T value) {
+		
+	}
+	
+	public boolean contains(T value) {		
+		if(this.data.compareTo(value)==0)
+			return true;
+		if(this.data.compareTo(value)>0 && this.left != null)
+			return this.left.contains(value);	
+		if(this.data.compareTo(value)<0 && this.right != null)
+			return this.right.contains(value);	
+		return false;
+	}
+	
+	public T delete(T value) {
+		
+		
+		
+		return this.data;
+	}
+	
 	//left parent right
 	public void printInOrder() {
 		if(this.left != null) {
@@ -42,24 +63,24 @@ public class Node<T extends Comparable<T>> {
 	
 	// Parent, left and Right
 	public void printPreOrder() {
-		if(this.left != null) {
-			this.left.printInOrder();
-		}
 		System.out.println(this.data);
+		if(this.left != null) {
+			this.left.printPreOrder();
+		}
 		if(this.right != null) {
-			this.right.printInOrder();
+			this.right.printPreOrder();
 		}		
 	}
 	
 	//left, right and parent
 	public void printPostOrder() {
 		if(this.left != null) {
-			this.left.printInOrder();
+			this.left.printPostOrder();
 		}
-		System.out.println(this.data);
 		if(this.right != null) {
-			this.right.printInOrder();
-		}		
+			this.right.printPostOrder();
+		}	
+		System.out.println(this.data);
 	}
 	
 	

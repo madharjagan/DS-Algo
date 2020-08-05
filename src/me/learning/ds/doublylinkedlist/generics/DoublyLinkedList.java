@@ -327,8 +327,7 @@ public class DoublyLinkedList<T> implements Iterable<T>{
 	}
 
 	@Override
-	public Iterator<T> iterator() {
-		
+	public Iterator<T> iterator() {		
 		return new ForwardIterators<>(head);
 	}
 
