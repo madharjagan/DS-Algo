@@ -9,6 +9,8 @@ public class BinarySearchTreeClient {
 		bst.addNode(4);
 		bst.addNode(8);
 		bst.printInOrder();
+		System.out.println(bst.contains(4));
+		System.out.println(bst.contains(10));
 	}
 
 }

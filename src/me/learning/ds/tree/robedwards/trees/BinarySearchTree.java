@@ -34,6 +34,31 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		return tree;
 	}
 	
+	public void addIterative(T value) {
+		
+	}
+	
+	public boolean contains(T value) {		
+		return contains(this.root, value);
+	}
+	
+	public boolean contains(Node<T> tree, T value) {		
+		if(tree.data.compareTo(value)==0)
+			return true;
+		if(tree.data.compareTo(value)>0 && tree.left != null)
+			return contains(tree.left, value);	
+		if(tree.data.compareTo(value)<0 && tree.right != null)
+			return contains(tree.right,value);	
+		return false;
+	}
+	
+	public T delete(T value) {
+		
+		
+		
+		return value;
+	}
+	
 	
 	public void printInOrder() {
 		printInOrder(this.root);
