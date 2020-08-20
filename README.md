@@ -10,4 +10,8 @@
 ![array example](https://github.com/madharjagan/DS-Algo/blob/master/images/arrays/3_array-examples.png)
 
 ### Linked List
+![Types of LinkedList](https://github.com/madharjagan/DS-Algo/blob/master/images/ll/LinkedList.png)
+
+
+![Reverse LinkedList](https://github.com/madharjagan/DS-Algo/blob/master/images/ll/ReverseLinkedList.gif)
 
