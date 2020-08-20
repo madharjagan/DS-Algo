@@ -1,4 +1,4 @@
-package me.learning.ds.tree.robedwards.trees;
+package me.learning.ds.tree.robedwards.trees.bst;
 
 public class BinarySearchTreeClient {
 

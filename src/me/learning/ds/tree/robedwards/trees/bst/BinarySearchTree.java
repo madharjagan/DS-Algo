@@ -1,4 +1,4 @@
-package me.learning.ds.tree.robedwards.trees;
+package me.learning.ds.tree.robedwards.trees.bst;
 
 /*
  * In Binary tree, each Node will have two child Node. More than two Nodes are not allowed

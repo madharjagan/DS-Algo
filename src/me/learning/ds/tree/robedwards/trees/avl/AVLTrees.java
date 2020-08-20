@@ -41,7 +41,6 @@ public class AVLTrees<T extends Comparable<T>> {
 		}
 		tree.height = 1+ Math.max(height(tree.left), height(tree.right));
 		return balance(tree);
-		//checkBalance(tree);
 	}
 	
     /**
